@@ -30,10 +30,10 @@
       <section class="hero" id="top" aria-labelledby="heroTitle">
         <div class="hero-copy">
           <p class="eyebrow"><span></span> LØRDAG · KL. 10.00</p>
-          <h1 id="heroTitle">Spis Berlin<br /><em>bid for bid.</em></h1>
-          <p class="intro">En kompakt guide til et par lækre timer, 4–5 stop og hele gruppens vigtigste opgave: mød sulten op.</p>
+          <h1 id="heroTitle">Spis Berlin.<br /><em>Vind æren.</em></h1>
+          <p class="intro">Tre hold. Fem stop. Fotojagter, hemmelige missioner og tvivlsom ære på højkant. Det eneste seriøse er appetitten.</p>
           <div class="hero-actions">
-            <a class="button button-dark" href="#tour">Start turen <span aria-hidden="true">↘</span></a>
+            <a class="button button-dark" href="#game">Start kampen <span aria-hidden="true">↘</span></a>
             <button class="button button-ghost" id="installButton" type="button" hidden>Gem på mobilen</button>
           </div>
         </div>
@@ -50,10 +50,74 @@
       </section>
 
       <section class="quick-facts" aria-label="Praktisk info">
-        <article><span class="fact-number">10.00</span><span class="fact-label">Vi starter</span></article>
-        <article><span class="fact-number">2–3 t.</span><span class="fact-label">Cirka varighed</span></article>
-        <article><span class="fact-number">4–5</span><span class="fact-label">Stop på vejen</span></article>
-        <article><span class="fact-number">12</span><span class="fact-label">Smagere</span></article>
+        <article><span class="fact-number">3</span><span class="fact-label">Hold i kamp</span></article>
+        <article><span class="fact-number">5</span><span class="fact-label">Runder</span></article>
+        <article><span class="fact-number">12</span><span class="fact-label">Spillere</span></article>
+        <article><span class="fact-number">1</span><span class="fact-label">Evig hæder</span></article>
+      </section>
+
+      <section class="section game-section" id="game" aria-labelledby="gameTitle">
+        <div class="section-heading game-heading">
+          <div>
+            <p class="eyebrow"><span></span> FREDDY FRESH FEDE FOOD FIGHT</p>
+            <h2 id="gameTitle">Tourkampen</h2>
+          </div>
+          <p>Én fælles mobil er dommerbord. Træk en udfordring, grin, giv point — videre.</p>
+        </div>
+
+        <div class="game-toolbar">
+          <button class="button button-dark" id="setupGameButton" type="button">Sæt holdene <span>⚙</span></button>
+          <div class="game-rule"><small>FORBUDT ORD</small><strong id="forbiddenWord">“lækkert”</strong></div>
+          <div class="game-rule prize-rule"><small>DAGENS GULEROD</small><strong id="prizeSummary">Vinderne vælger sidste stop</strong></div>
+        </div>
+
+        <div class="scoreboard" id="scoreboard" aria-label="Pointtavle"></div>
+
+        <div class="game-grid">
+          <article class="round-card" id="roundCard">
+            <div class="round-topline">
+              <span id="challengeCategory">FOTO · ALLE HOLD</span>
+              <strong id="challengePoints">3 POINT</strong>
+            </div>
+            <div class="challenge-icon" id="challengeIcon" aria-hidden="true">📸</div>
+            <p class="round-number" id="roundNumber">RUNDE 01</p>
+            <h3 id="challengeTitle">Det uofficielle albumcover</h3>
+            <p id="challengeText">Tag et dramatisk bandfoto med dagens mad som hovedperson. Mere attitude giver ikke nødvendigvis flere point — men det hjælper.</p>
+            <div class="evidence-preview" id="evidencePreview" hidden>
+              <img id="evidenceImage" alt="Billedbevis til den aktuelle udfordring" />
+              <span>Billedbevis klar ✓</span>
+            </div>
+            <div class="round-actions">
+              <label class="button button-ghost camera-button" for="evidenceInput">Tag bevis <span>📷</span></label>
+              <input id="evidenceInput" class="visually-hidden" type="file" accept="image/*" capture="environment" />
+              <button class="button button-light" id="drawChallenge" type="button">Ny udfordring <span>↻</span></button>
+            </div>
+          </article>
+
+          <aside class="judge-panel">
+            <p class="panel-label">DOMMERBORDET</p>
+            <h3>Hvem tog den?</h3>
+            <p>Tryk på vinderholdet. Pointene på kortet bliver lagt direkte på tavlen.</p>
+            <div class="award-buttons" id="awardButtons"></div>
+            <div class="judge-divider"></div>
+            <p class="panel-label">TUR-REGEL</p>
+            <p class="forbidden-copy">Hører I et andet hold sige <strong id="forbiddenWordInline">“lækkert”</strong>? Råb “GUL KARRY!” og giv jeres eget hold +1 på pointtavlen.</p>
+          </aside>
+        </div>
+
+        <div class="side-missions">
+          <div class="side-copy">
+            <p class="eyebrow"><span></span> HOLD DET HEMMELIGT</p>
+            <h3>Side missions</h3>
+            <p>Ét hold ad gangen kigger. Løs missionen ubemærket inden sidste stop og snup 2 bonuspoint.</p>
+          </div>
+          <div class="mission-grid" id="missionGrid"></div>
+        </div>
+
+        <div class="game-footer">
+          <p><strong>Øl er en mulighed, aldrig en pligt.</strong> Alle drikke-udfordringer virker også med vand eller sodavand. Ingen bund, ingen pres — og spørg altid, før fremmede kommer med på et billede.</p>
+          <button class="button button-dark" id="finishGameButton" type="button">Kår vinderne <span>🏆</span></button>
+        </div>
       </section>
 
       <section class="section tour-section" id="tour" aria-labelledby="tourTitle">
@@ -153,22 +217,6 @@
         </div>
       </section>
 
-      <section class="section game-section" id="game" aria-labelledby="gameTitle">
-        <div class="game-card">
-          <div class="game-copy">
-            <p class="eyebrow"><span></span> SJOVT INDSLAG</p>
-            <h2 id="gameTitle">Træk en<br /><em>madmission.</em></h2>
-            <p>Et lille benspænd til gruppen. Ingen udstilling, bare god energi.</p>
-            <button class="button button-light" id="drawChallenge" type="button">Træk en mission <span>↻</span></button>
-          </div>
-          <div class="challenge-card" id="challengeCard" aria-live="polite">
-            <span class="challenge-number">#01</span>
-            <p id="challengeText">Find turens sprødeste bid — og forsvar jeres valg med tre ord.</p>
-            <small>FREDDY FRESH CHALLENGE</small>
-          </div>
-        </div>
-      </section>
-
       <section class="section tips-section" aria-labelledby="tipsTitle">
         <div class="section-heading">
           <div>
@@ -186,16 +234,42 @@
 
       <section class="finale" aria-label="Afslutning">
         <p>FREDDY FRESH FEDE FOOD TOUR</p>
-        <h2>Bis später,<br /><em>Berlin.</em></h2>
-        <button class="button button-dark" id="resetButton" type="button">Nulstil dagens krydser</button>
+        <h2>Tab med stil.<br /><em>Vind med sauce.</em></h2>
+        <button class="button button-dark" id="resetButton" type="button">Nulstil hele dagen</button>
       </section>
     </main>
 
     <nav class="mobile-nav" aria-label="Hurtig navigation">
-      <a href="#tour"><span>01</span>Rute</a>
-      <a href="#menu"><span>02</span>Smage</a>
-      <a href="#game"><span>03</span>Leg</a>
+      <a href="#game"><span>01</span>Kamp</a>
+      <a href="#tour"><span>02</span>Rute</a>
+      <a href="#menu"><span>03</span>Smage</a>
     </nav>
+
+    <dialog class="game-dialog" id="gameSetup" aria-labelledby="setupTitle">
+      <form method="dialog" id="setupForm">
+        <div class="dialog-topline"><span>NY KAMP</span><button type="button" class="dialog-close" data-close-dialog aria-label="Luk">×</button></div>
+        <h2 id="setupTitle">Hvem kæmper?</h2>
+        <p>Tre hold fungerer perfekt til 12 personer. Skift navnene, hvis I har bedre dømmekraft end os.</p>
+        <div class="team-inputs">
+          <label><span>Hold 1</span><input name="team1" maxlength="22" value="Team Curry" /></label>
+          <label><span>Hold 2</span><input name="team2" maxlength="22" value="Team Döner" /></label>
+          <label><span>Hold 3</span><input name="team3" maxlength="22" value="Team Pretzel" /></label>
+        </div>
+        <label class="prize-input"><span>Præmien</span><input name="prize" maxlength="90" value="Vinderne vælger sidste stop og får en valgfri drik af taberne" /></label>
+        <label class="beer-toggle"><input name="beerMode" type="checkbox" checked /><span><strong>Ølmissioner i bunken</strong><small>Kan altid løses alkoholfrit. Aldrig bund eller drikkepres.</small></span></label>
+        <button class="button button-dark dialog-submit" type="submit">Start kampen <span>→</span></button>
+      </form>
+    </dialog>
+
+    <dialog class="winner-dialog" id="winnerDialog" aria-labelledby="winnerTitle">
+      <div class="confetti" aria-hidden="true">✦ ● ★ ✦ ● ★ ✦ ●</div>
+      <div class="winner-crown" aria-hidden="true">♛</div>
+      <p>BERLINS NYE SMAGSKONGER</p>
+      <h2 id="winnerTitle">Team Curry</h2>
+      <strong id="winnerScore">0 point</strong>
+      <p id="winnerPrize">I vinder retten til at vælge sidste stop.</p>
+      <button class="button button-dark" type="button" data-close-winner>Luk podiet</button>
+    </dialog>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script src="app.js" defer></script>

@@ -1,7 +1,7 @@
 {
   "name": "Freddy Fresh · Berlin Food Tour",
   "short_name": "Berlin Bites",
-  "description": "En mobil guide til Freddy Fresh Food Tour i Berlin.",
+  "description": "En social holdkamp med madmissioner, fotojagt og guide til Freddy Fresh Food Tour i Berlin.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f5f0e6",
