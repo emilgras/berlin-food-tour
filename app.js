@@ -11,21 +11,32 @@ const dishes = [
 ];
 
 const mapPlaces = [
-  { name: "Brandenburger Tor", type: "sight", icon: "★", lat: 52.51628, lng: 13.37770, text: "Berlins klassiske port og et sikkert gruppefoto." },
-  { name: "Fernsehturm", type: "sight", icon: "★", lat: 52.52082, lng: 13.40942, text: "Byens letteste pejlemærke — kig op, når I farer vild." },
-  { name: "Museumsinsel", type: "sight", icon: "★", lat: 52.51693, lng: 13.40100, text: "Monumental arkitektur, Spree og fem store museer." },
-  { name: "East Side Gallery", type: "sight", icon: "★", lat: 52.50502, lng: 13.43969, text: "Den længste bevarede del af Berlinmuren, dækket af kunst." },
-  { name: "Siegessäule", type: "sight", icon: "★", lat: 52.51453, lng: 13.35012, text: "Den gyldne engel midt i Tiergarten — flot både nedefra og oppefra." },
-  { name: "Markthalle Neun", type: "food", icon: "●", lat: 52.50213, lng: 13.43185, text: "Historisk markedshal med skiftende madboder og lokale producenter." },
-  { name: "Curry 36", type: "food", icon: "●", lat: 52.49331, lng: 13.38713, text: "Et kendt stop til en hurtig currywurst ved Mehringdamm." },
-  { name: "Mustafa’s Gemüse Kebap", type: "food", icon: "●", lat: 52.49387, lng: 13.38817, text: "Populær grøntsagsdöner — køen er en del af oplevelsen." },
-  { name: "Konnopke’s Imbiss", type: "food", icon: "●", lat: 52.54085, lng: 13.41242, text: "Klassisk currywurst under U-Bahn-sporene i Prenzlauer Berg." },
-  { name: "Burgermeister Schlesisches Tor", type: "food", icon: "●", lat: 52.50038, lng: 13.44134, text: "Burgersted i en tidligere offentlig toiletbygning — meget Berlin." },
-  { name: "Viktoriapark", type: "gem", icon: "✦", lat: 52.48835, lng: 13.38006, text: "Vandfald, monument og et overraskende kig ud over byen." },
-  { name: "Körnerpark", type: "gem", icon: "✦", lat: 52.47020, lng: 13.43854, text: "Formel nybarok park gemt flere meter under gadens niveau." },
-  { name: "Klunkerkranich", type: "gem", icon: "✦", lat: 52.48243, lng: 13.43162, text: "Taghave over Neukölln med udsigt og afslappet stemning." },
-  { name: "Teufelsberg", type: "gem", icon: "✦", lat: 52.49738, lng: 13.24116, text: "Forladt aflytningsstation, street art og et stort Berlin-panorama." },
+  { id: "brandenburg", name: "Brandenburger Tor", type: "sight", icon: "★", points: 4, lat: 52.51628, lng: 13.37770, text: "Berlins klassiske port og et sikkert gruppefoto.", challenge: "Tag et pull-request-billede foran gatewayen. Godkendelse er implicit." },
+  { id: "tv-tower", name: "Fernsehturm", type: "sight", icon: "★", points: 3, lat: 52.52082, lng: 13.40942, text: "Byens letteste pejlemærke — kig op, når I farer vild.", challenge: "Få tårnet til at ligne verdens dyreste Wi-Fi-antenne." },
+  { id: "museum-island", name: "Museumsinsel", type: "sight", icon: "★", points: 4, lat: 52.51693, lng: 13.40100, text: "Monumental arkitektur, Spree og fem store museer.", challenge: "Dokumentér fem museer deployet på samme monolit." },
+  { id: "east-side", name: "East Side Gallery", type: "sight", icon: "★", points: 4, lat: 52.50502, lng: 13.43969, text: "Den længste bevarede del af Berlinmuren, dækket af kunst.", challenge: "Find jeres favoritmural. Resistér trangen til at refaktorere den." },
+  { id: "victory-column", name: "Siegessäule", type: "sight", icon: "★", points: 4, lat: 52.51453, lng: 13.35012, text: "Den gyldne engel midt i Tiergarten — flot både nedefra og oppefra.", challenge: "Tag et sejrsfoto. Premature celebration accepteres i staging." },
+  { id: "reichstag", name: "Reichstag", type: "sight", icon: "★", points: 4, lat: 52.51862, lng: 13.37620, text: "Historisk parlament med en moderne glaskuppel.", challenge: "Dokumentér et legacy-system, der stadig er i aktiv maintenance." },
+  { id: "memorial", name: "Mindesmærket for Europas myrdede jøder", type: "sight", icon: "★", points: 3, lat: 52.51392, lng: 13.37869, text: "Et sted for erindring og eftertanke tæt ved Brandenburger Tor.", challenge: "Ingen joke her. Tag et respektfuldt oversigtsbillede — stå ikke på stelerne." },
+  { id: "berlin-cathedral", name: "Berliner Dom", type: "sight", icon: "★", points: 3, lat: 52.51906, lng: 13.40103, text: "Stor kuppel, grønt kobber og maksimal arkitektonisk overengineering.", challenge: "Få hele kuplen med uden at introducere en panorama-bug." },
+  { id: "checkpoint-charlie", name: "Checkpoint Charlie", type: "sight", icon: "★", points: 2, lat: 52.50759, lng: 13.39039, text: "Det tidligere grænsepunkt mellem øst og vest.", challenge: "Fotografér den pensionerede firewall. HTTP 403 er nu deprecated." },
+  { id: "oberbaum", name: "Oberbaumbrücke", type: "sight", icon: "★", points: 3, lat: 52.50194, lng: 13.44502, text: "Rød murstensbro, U-Bahn og et af byens bedste Spree-kig.", challenge: "Find en bro mellem to systemer, der faktisk virker." },
+  { id: "tempelhof", name: "Tempelhofer Feld", type: "gem", icon: "✦", points: 5, lat: 52.47332, lng: 13.40338, text: "En tidligere lufthavn, nu enorm offentlig park.", challenge: "Airport process terminated successfully. Tag et billede på runwayen." },
+  { id: "hackesche", name: "Hackesche Höfe", type: "gem", icon: "✦", points: 5, lat: 52.52482, lng: 13.40286, text: "Otte sammenhængende gårdrum med jugendstil, butikker og caféer.", challenge: "Find den smukkeste nested courtyard. O(n²), men værd at køre." },
+  { id: "schwarzenberg", name: "Haus Schwarzenberg", type: "gem", icon: "✦", points: 6, lat: 52.52513, lng: 13.40223, text: "Street art, små kultursteder og kontrolleret visuel kaos.", challenge: "Find gården som en manglende semikolon: langsomt og med stigende panik." },
+  { id: "soviet-memorial", name: "Sowjetisches Ehrenmal Treptow", type: "gem", icon: "✦", points: 6, lat: 52.48611, lng: 13.46902, text: "Monumentalt mindesmærke i Treptower Park.", challenge: "Tag et respektfuldt billede af skalaen. Dette er dokumentation, ikke en meme." },
+  { id: "markthalle", name: "Markthalle Neun", type: "food", icon: "●", lat: 52.50213, lng: 13.43185, text: "Historisk markedshal med skiftende madboder og lokale producenter." },
+  { id: "curry36", name: "Curry 36", type: "food", icon: "●", lat: 52.49331, lng: 13.38713, text: "Et kendt stop til en hurtig currywurst ved Mehringdamm." },
+  { id: "mustafas", name: "Mustafa’s Gemüse Kebap", type: "food", icon: "●", lat: 52.49387, lng: 13.38817, text: "Populær grøntsagsdöner — køen er en del af oplevelsen." },
+  { id: "konnopke", name: "Konnopke’s Imbiss", type: "food", icon: "●", lat: 52.54085, lng: 13.41242, text: "Klassisk currywurst under U-Bahn-sporene i Prenzlauer Berg." },
+  { id: "burgermeister", name: "Burgermeister Schlesisches Tor", type: "food", icon: "●", lat: 52.50038, lng: 13.44134, text: "Burgersted i en tidligere offentlig toiletbygning — meget Berlin." },
+  { id: "viktoriapark", name: "Viktoriapark", type: "gem", icon: "✦", points: 5, lat: 52.48835, lng: 13.38006, text: "Vandfald, monument og et overraskende kig ud over byen.", challenge: "Find vandfaldet. Nature API kan være deaktiveret i tørvejr." },
+  { id: "kornerpark", name: "Körnerpark", type: "gem", icon: "✦", points: 6, lat: 52.47020, lng: 13.43854, text: "Formel nybarok park gemt flere meter under gadens niveau.", challenge: "Bevis at Berlin pludselig loadede et aristokratisk CSS-theme." },
+  { id: "klunkerkranich", name: "Klunkerkranich", type: "gem", icon: "✦", points: 5, lat: 52.48243, lng: 13.43162, text: "Taghave over Neukölln med udsigt og afslappet stemning.", challenge: "Tag skyline-proof fra et parkeringshus med overraskende god frontend." },
+  { id: "teufelsberg", name: "Teufelsberg", type: "gem", icon: "✦", points: 8, lat: 52.49738, lng: 13.24116, text: "Forladt aflytningsstation, street art og et stort Berlin-panorama.", challenge: "Besøg den oprindelige observability stack. Sovjetunionen har left the channel." },
 ];
+
+const questPlaces = mapPlaces.filter((place) => place.points);
 
 // Exact tour stops are added here once confirmed. They stay invisible in the UI
 // until GPS proximity unlocks each clue and, finally, the name.
@@ -82,11 +93,17 @@ function freshGame() {
   };
 }
 
+function freshCityGame() {
+  return { name: "", team: "", visits: {}, photos: {} };
+}
+
 const storedGame = safeParse(localStorage.getItem("berlinGame"), null);
+const storedCityGame = safeParse(localStorage.getItem("berlinCityGame"), null);
 const state = {
   stops: new Set(safeParse(localStorage.getItem("berlinStops"), [])),
   dishes: new Set(safeParse(localStorage.getItem("berlinDishes"), [])),
   game: storedGame?.teams?.length === 3 ? storedGame : freshGame(),
+  city: storedCityGame?.visits && storedCityGame?.photos ? storedCityGame : freshCityGame(),
 };
 
 const timeline = document.querySelector("#timeline");
@@ -110,6 +127,8 @@ let locationWatch;
 let hasCenteredOnUser = false;
 let currentMysteryStop = Math.max(0, Number(localStorage.getItem("berlinMysteryStop") || 0));
 let lastKnownPosition;
+let activeQuestId;
+let currentMapFilter = "all";
 
 function escapeHTML(value) {
   return String(value).replace(/[&<>'"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[char]);
@@ -119,6 +138,7 @@ function saveState() {
   localStorage.setItem("berlinStops", JSON.stringify([...state.stops]));
   localStorage.setItem("berlinDishes", JSON.stringify([...state.dishes]));
   localStorage.setItem("berlinGame", JSON.stringify(state.game));
+  localStorage.setItem("berlinCityGame", JSON.stringify(state.city));
 }
 
 function showToast(message) {
@@ -126,6 +146,163 @@ function showToast(message) {
   toast.textContent = message;
   toast.classList.add("show");
   toastTimer = setTimeout(() => toast.classList.remove("show"), 2300);
+}
+
+function cityScore() {
+  return questPlaces.reduce((total, place) => total + (state.city.visits[place.id] ? place.points : 0), 0);
+}
+
+function compressPhoto(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    const image = new Image();
+    reader.onerror = reject;
+    image.onerror = reject;
+    reader.onload = () => { image.src = reader.result; };
+    image.onload = () => {
+      const maxSide = 560;
+      const scale = Math.min(1, maxSide / Math.max(image.width, image.height));
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.max(1, Math.round(image.width * scale));
+      canvas.height = Math.max(1, Math.round(image.height * scale));
+      canvas.getContext("2d").drawImage(image, 0, 0, canvas.width, canvas.height);
+      resolve(canvas.toDataURL("image/jpeg", .68));
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderCityGame() {
+  const visitedCount = Object.keys(state.city.visits).filter((id) => questPlaces.some((place) => place.id === id)).length;
+  document.querySelector("#hunterName").value = state.city.name;
+  document.querySelector("#hunterTeam").value = state.city.team;
+  document.querySelector("#hunterStatus").textContent = state.city.name ? `${state.city.name}${state.city.team ? ` · ${state.city.team}` : ""}` : "ANONYMOUS PROCESS";
+  document.querySelector("#cityPoints").textContent = cityScore();
+  document.querySelector("#cityVisited").textContent = visitedCount;
+  document.querySelector("#cityProgressBar").style.width = `${(visitedCount / questPlaces.length) * 100}%`;
+  document.querySelector("#questGrid").innerHTML = questPlaces.map((place, index) => {
+    const visit = state.city.visits[place.id];
+    const photo = state.city.photos[place.id];
+    const kind = place.type === "gem" ? "HIDDEN GEM" : "SEVÆRDIGHED";
+    return `<article class="quest-card${visit ? " is-complete" : ""}">
+      <div class="quest-proof">${photo ? `<img src="${photo}" alt="Fotobevis fra ${escapeHTML(place.name)}" />` : `<span>${place.type === "gem" ? "✦" : "★"}</span><small>NO PROOF<br />NO POINTS</small>`}</div>
+      <div class="quest-body">
+        <div class="quest-topline"><span>#${String(index + 1).padStart(2, "0")} · ${kind}</span><strong>${place.points} PT</strong></div>
+        <h4>${escapeHTML(place.name)}</h4>
+        <p>${escapeHTML(place.challenge)}</p>
+        <div class="quest-state">${visit ? `<strong>${visit.verified ? "✓ GPS VERIFIED" : "✓ PHOTO COMMITTED"}</strong><small>${new Date(visit.capturedAt).toLocaleDateString("da-DK")}</small>` : `<strong>OPEN ISSUE</strong><small>Afventer fysisk fremmøde</small>`}</div>
+        <div class="quest-actions">
+          <button type="button" data-show-place="${place.id}">Vis på kort</button>
+          <button class="capture-proof" type="button" data-capture-place="${place.id}">${visit ? "Erstat foto" : "Tag fotobevis"}</button>
+        </div>
+      </div>
+    </article>`;
+  }).join("");
+}
+
+function loadCanvasImage(source) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+    image.src = source;
+  });
+}
+
+function drawCoverImage(context, image, x, y, width, height) {
+  const scale = Math.max(width / image.width, height / image.height);
+  const sourceWidth = width / scale;
+  const sourceHeight = height / scale;
+  context.drawImage(image, (image.width - sourceWidth) / 2, (image.height - sourceHeight) / 2, sourceWidth, sourceHeight, x, y, width, height);
+}
+
+async function buildScorecard() {
+  const canvas = document.createElement("canvas");
+  canvas.width = 1080;
+  canvas.height = 1350;
+  const context = canvas.getContext("2d");
+  const completed = questPlaces.filter((place) => state.city.visits[place.id]);
+  context.fillStyle = "#ffce36";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  context.fillStyle = "#ff4f2e";
+  context.fillRect(0, 0, canvas.width, 300);
+  context.fillStyle = "#171713";
+  context.font = "900 34px sans-serif";
+  context.fillText("BERLIN EXCEPTION HUNT", 64, 72);
+  context.font = "900 72px sans-serif";
+  context.fillText((state.city.name || "ANONYMOUS PROCESS").slice(0, 24), 64, 160);
+  context.font = "700 30px sans-serif";
+  context.fillText((state.city.team || "NO SQUAD ASSIGNED").slice(0, 32), 66, 215);
+  context.fillStyle = "#fffaf0";
+  context.font = "900 34px sans-serif";
+  context.fillText(`${cityScore()} POINT · ${completed.length}/${questPlaces.length} CAPTURED`, 64, 272);
+
+  const photos = completed.filter((place) => state.city.photos[place.id]).slice(0, 6);
+  for (let index = 0; index < 6; index += 1) {
+    const x = 64 + (index % 3) * 322;
+    const y = 350 + Math.floor(index / 3) * 242;
+    context.fillStyle = "#171713";
+    context.fillRect(x, y, 300, 210);
+    const place = photos[index];
+    if (place) {
+      try {
+        const image = await loadCanvasImage(state.city.photos[place.id]);
+        drawCoverImage(context, image, x + 4, y + 4, 292, 166);
+        context.fillStyle = "#fffaf0";
+        context.font = "800 20px sans-serif";
+        context.fillText(place.name.slice(0, 25), x + 12, y + 197);
+      } catch { /* Keep the empty proof slot if a local image cannot decode. */ }
+    } else {
+      context.fillStyle = "#4f4c43";
+      context.font = "700 18px sans-serif";
+      context.fillText("AWAITING PROOF", x + 65, y + 112);
+    }
+  }
+
+  context.fillStyle = "#171713";
+  context.font = "900 25px sans-serif";
+  context.fillText("MERGED ISSUES", 64, 890);
+  context.font = "700 22px sans-serif";
+  completed.slice(0, 16).forEach((place, index) => {
+    const column = index < 8 ? 0 : 1;
+    const row = index % 8;
+    const visit = state.city.visits[place.id];
+    context.fillText(`${visit.verified ? "✓" : "•"} ${place.name}`.slice(0, 31), 64 + column * 500, 935 + row * 40);
+  });
+  context.font = "700 20px sans-serif";
+  context.fillText("Generated locally. No server knew enough to stop us.", 64, 1300);
+  return new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+}
+
+async function shareCityScorecard() {
+  if (!state.city.name) {
+    document.querySelector("#hunterName").focus();
+    showToast("Giv processen et alias før den deployes");
+    return;
+  }
+  const button = document.querySelector("#shareScorecard");
+  button.disabled = true;
+  button.textContent = "Compiler scorecard…";
+  try {
+    const blob = await buildScorecard();
+    const file = new File([blob], "berlin-exception-scorecard.png", { type: "image/png" });
+    const text = `${state.city.name} har ${cityScore()} point i Berlin Exception Hunt (${Object.keys(state.city.visits).length}/${questPlaces.length} steder).`;
+    if (navigator.share && navigator.canShare?.({ files: [file] })) {
+      await navigator.share({ title: "Berlin Exception Hunt", text, files: [file] });
+    } else {
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "berlin-exception-scorecard.png";
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+      showToast("Scorekort downloadet — ship det i gruppechatten");
+    }
+  } catch (error) {
+    if (error.name !== "AbortError") showToast("Scorekortet crashede elegant. Prøv igen.");
+  } finally {
+    button.disabled = false;
+    button.innerHTML = "Share scorecard <span>↗</span>";
+  }
 }
 
 function markerIcon(type, label) {
@@ -141,11 +318,14 @@ function markerIcon(type, label) {
 function placePopup(place) {
   const query = encodeURIComponent(`${place.name}, Berlin`);
   const labels = { sight: "Seværdighed", food: "Madspor", gem: "Hidden gem" };
-  return `<div class="map-popup"><small>${labels[place.type]}</small><h3>${escapeHTML(place.name)}</h3><p>${escapeHTML(place.text)}</p><a href="https://www.google.com/maps/search/?api=1&query=${query}" target="_blank" rel="noreferrer">Åbn vejvisning ↗</a></div>`;
+  const visit = place.id ? state.city.visits[place.id] : null;
+  const quest = place.points ? `<div class="popup-quest"><strong>${place.points} POINT · ${visit ? (visit.verified ? "GPS VERIFIED" : "PHOTO COMMITTED") : "OPEN ISSUE"}</strong><p>${escapeHTML(place.challenge)}</p><button type="button" data-capture-place="${place.id}">${visit ? "Erstat fotobevis" : "Tag fotobevis"}</button></div>` : "";
+  return `<div class="map-popup"><small>${labels[place.type]}</small><h3>${escapeHTML(place.name)}</h3><p>${escapeHTML(place.text)}</p>${quest}<a href="https://www.google.com/maps/search/?api=1&query=${query}" target="_blank" rel="noreferrer">Åbn vejvisning ↗</a></div>`;
 }
 
 function renderMapPlaces(filter = "all") {
   if (!berlinMap) return;
+  currentMapFilter = filter;
   placeMarkers.forEach(({ marker }) => marker.remove());
   placeMarkers = mapPlaces
     .filter((place) => filter === "all" || place.type === filter)
@@ -529,6 +709,80 @@ document.querySelector("#finishGameButton").addEventListener("click", () => {
 
 document.querySelector("[data-close-winner]").addEventListener("click", () => winnerDialog.close());
 
+document.querySelector("#hunterProfile").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const formData = new FormData(event.currentTarget);
+  state.city.name = String(formData.get("hunterName") || "").trim();
+  state.city.team = String(formData.get("hunterTeam") || "").trim();
+  saveState();
+  renderCityGame();
+  showToast(state.city.name ? `Process ${state.city.name} kører` : "Processen er stadig anonym");
+});
+
+function openQuestCamera(placeId) {
+  activeQuestId = placeId;
+  document.querySelector("#questPhotoInput").click();
+}
+
+function showPlaceOnMap(placeId) {
+  const place = mapPlaces.find((item) => item.id === placeId);
+  if (!place || !berlinMap) return;
+  document.querySelectorAll(".map-filter").forEach((filterButton) => {
+    const active = filterButton.dataset.mapFilter === "all";
+    filterButton.classList.toggle("is-active", active);
+    filterButton.setAttribute("aria-pressed", String(active));
+  });
+  renderMapPlaces("all");
+  document.querySelector("#mapSection").scrollIntoView({ behavior: "smooth" });
+  setTimeout(() => {
+    berlinMap.setView([place.lat, place.lng], 16);
+    placeMarkers.find((entry) => entry.place.id === placeId)?.marker.openPopup();
+  }, 450);
+}
+
+document.querySelector("#questGrid").addEventListener("click", (event) => {
+  const capture = event.target.closest("[data-capture-place]");
+  const mapButton = event.target.closest("[data-show-place]");
+  if (capture) openQuestCamera(capture.dataset.capturePlace);
+  if (mapButton) showPlaceOnMap(mapButton.dataset.showPlace);
+});
+
+document.querySelector("#berlinMap").addEventListener("click", (event) => {
+  const capture = event.target.closest("[data-capture-place]");
+  if (capture) openQuestCamera(capture.dataset.capturePlace);
+});
+
+document.querySelector("#questPhotoInput").addEventListener("change", async (event) => {
+  const [file] = event.target.files;
+  const place = questPlaces.find((item) => item.id === activeQuestId);
+  if (!file || !place) return;
+  showToast("Komprimerer bevis uden blockchain…");
+  const previousPhoto = state.city.photos[place.id];
+  const previousVisit = state.city.visits[place.id];
+  try {
+    const photo = await compressPhoto(file);
+    const verified = Boolean(lastKnownPosition && distanceInMeters(lastKnownPosition, place) <= 350);
+    state.city.photos[place.id] = photo;
+    state.city.visits[place.id] = { capturedAt: new Date().toISOString(), verified };
+    saveState();
+    renderCityGame();
+    renderMapPlaces(currentMapFilter);
+    showToast(`${place.points} point committed${verified ? " · GPS verified" : ""}`);
+  } catch {
+    if (previousPhoto) state.city.photos[place.id] = previousPhoto;
+    else delete state.city.photos[place.id];
+    if (previousVisit) state.city.visits[place.id] = previousVisit;
+    else delete state.city.visits[place.id];
+    showToast("Billedet nægtede at compile. Prøv et nyt foto.");
+  } finally {
+    event.target.value = "";
+    activeQuestId = undefined;
+  }
+});
+
+document.querySelector("#shareScorecard").addEventListener("click", shareCityScorecard);
+document.querySelector("#jumpToMap").addEventListener("click", () => document.querySelector("#mapSection").scrollIntoView({ behavior: "smooth" }));
+
 document.querySelector(".map-toolbar").addEventListener("click", (event) => {
   const button = event.target.closest("[data-map-filter]");
   if (!button) return;
@@ -566,10 +820,11 @@ document.querySelector("#shareButton").addEventListener("click", async () => {
 });
 
 document.querySelector("#resetButton").addEventListener("click", () => {
-  if (!confirm("Vil du nulstille stop, smage, hold og alle point?")) return;
+  if (!confirm("DROP DATABASE berlin_trip? Det nulstiller hunt, fotos, food tour og alle point på denne telefon.")) return;
   state.stops.clear();
   state.dishes.clear();
   state.game = freshGame();
+  state.city = freshCityGame();
   currentMysteryStop = 0;
   localStorage.removeItem("berlinMysteryStop");
   saveState();
@@ -579,6 +834,7 @@ document.querySelector("#resetButton").addEventListener("click", () => {
   });
   renderDishes();
   renderGame();
+  renderCityGame();
   updateProgress();
   showToast("Hele dagen er nulstillet");
 });
@@ -605,6 +861,7 @@ document.querySelectorAll(".stop-card").forEach((card) => {
 
 renderDishes();
 renderGame();
+renderCityGame();
 updateProgress();
 initMap();
 

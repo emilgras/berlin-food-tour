@@ -1,7 +1,9 @@
 # Freddy Fresh · Berlin Food Tour
 
-A mobile-first social game and guide for a group food tour in Berlin. The interface is in Danish and includes:
+A mobile-first social game and guide for a 40-person developer trip to Berlin, including a 12-person food-tour subgroup. The interface is in Danish and includes:
 
+- an 18-location sightseeing competition with real attractions and hidden gems;
+- persistent on-device photo proof, optional GPS verification, and a generated shareable scorecard;
 - a three-team scoreboard with editable team names and a custom prize;
 - randomized photo, performance, food, Berlin, and optional beer challenges;
 - secret team missions, a forbidden-word rule, photo evidence, and a winner ceremony;
@@ -14,7 +16,7 @@ A mobile-first social game and guide for a group food tour in Berlin. The interf
 - useful German ordering phrases and practical tour tips;
 - offline caching and installable PWA metadata.
 
-The game is designed around one shared “referee” phone. Scores, settings, and progress stay in that browser. Alcohol challenges are optional, work with non-alcoholic drinks, and never require speed drinking.
+The city hunt runs independently in every participant's browser. Alias, progress, and compressed proof photos stay in local storage; there is no account or central leaderboard. Participants share their generated scorecard in the trip's group chat. The food-tour game remains designed around one shared “referee” phone. Alcohol challenges are optional, work with non-alcoholic drinks, and never require speed drinking.
 
 ## Local preview
 

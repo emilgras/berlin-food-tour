@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#ff4f2e" />
-    <meta name="description" content="En mobil guide til Freddy Fresh Fede Food Tour i Berlin." />
+    <meta name="description" content="Berlin Exception Hunt: seværdighedsjagt, fotobevis og food tour for hele udviklerholdet." />
     <meta property="og:title" content="Freddy Fresh · Berlin Food Tour" />
-    <meta property="og:description" content="Smag, kryds af og leg jer gennem Berlin." />
+    <meta property="og:description" content="Find Berlin, ship beviset og undgå production incidents." />
     <meta property="og:type" content="website" />
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
@@ -33,10 +33,11 @@
       <section class="hero" id="top" aria-labelledby="heroTitle">
         <div class="hero-copy">
           <p class="eyebrow"><span></span> LØRDAG · KL. 10.00</p>
-          <h1 id="heroTitle">Spis Berlin.<br /><em>Vind æren.</em></h1>
-          <p class="intro">Tre hold. Fem stop. Fotojagter, hemmelige missioner og tvivlsom ære på højkant. Det eneste seriøse er appetitten.</p>
+          <h1 id="heroTitle">Berlin.exe<br /><em>is running.</em></h1>
+          <p class="intro">40 udviklere er sluppet løs i Berlin. Find byen, ship fotobeviset og undgå at blive den menneskelige 404.</p>
           <div class="hero-actions">
-            <a class="button button-dark" href="#game">Start kampen <span aria-hidden="true">↘</span></a>
+            <a class="button button-dark" href="#cityGame">Start Exception Hunt <span aria-hidden="true">↘</span></a>
+            <a class="button button-ghost" href="#game">Food tour-modulet</a>
             <button class="button button-ghost" id="installButton" type="button" hidden>Gem på mobilen</button>
           </div>
         </div>
@@ -53,19 +54,67 @@
       </section>
 
       <section class="quick-facts" aria-label="Praktisk info">
-        <article><span class="fact-number">3</span><span class="fact-label">Hold i kamp</span></article>
-        <article><span class="fact-number">5</span><span class="fact-label">Runder</span></article>
-        <article><span class="fact-number">12</span><span class="fact-label">Spillere</span></article>
-        <article><span class="fact-number">1</span><span class="fact-label">Evig hæder</span></article>
+        <article><span class="fact-number">40</span><span class="fact-label">Menneskelige processer</span></article>
+        <article><span class="fact-number">18</span><span class="fact-label">Berlin exceptions</span></article>
+        <article><span class="fact-number">12</span><span class="fact-label">Food tour-brugere</span></article>
+        <article><span class="fact-number">0</span><span class="fact-label">Lovede incidents</span></article>
+      </section>
+
+      <section class="section city-game-section" id="cityGame" aria-labelledby="cityGameTitle">
+        <div class="section-heading city-heading">
+          <div>
+            <p class="eyebrow"><span></span> ALLE 40 · BYJAGTEN</p>
+            <h2 id="cityGameTitle">Berlin Exception<br /><em>Hunt.</em></h2>
+          </div>
+          <p>Besøg rigtige seværdigheder og hidden gems. Tag et billede som proof of work. Flest point vinder retten til at være uudholdelig resten af turen.</p>
+        </div>
+
+        <div class="hunter-console">
+          <form class="hunter-profile" id="hunterProfile">
+            <div>
+              <span class="console-prompt">$ whoami</span>
+              <h3>Opret din lokale spiller</h3>
+              <p>Ingen login. Ingen cloud. Ingen database, som nogen kan glemme at tage backup af.</p>
+            </div>
+            <label><span>Alias</span><input name="hunterName" id="hunterName" maxlength="24" placeholder="fx Null Pointer Nicolai" autocomplete="nickname" /></label>
+            <label><span>Hold / squad</span><input name="hunterTeam" id="hunterTeam" maxlength="24" placeholder="fx Backend Bandits" /></label>
+            <button class="button button-dark" type="submit">Gem lokalt <span>⌘S</span></button>
+          </form>
+
+          <div class="hunter-score" aria-live="polite">
+            <div><small>STATUS</small><strong id="hunterStatus">ANONYMOUS PROCESS</strong></div>
+            <div class="score-orb"><strong id="cityPoints">0</strong><span>POINT</span></div>
+            <div><small>CAPTURED</small><strong><span id="cityVisited">0</span>/18</strong></div>
+            <div class="city-progress" aria-hidden="true"><span id="cityProgressBar"></span></div>
+            <button class="button button-light" id="shareScorecard" type="button">Share scorecard <span>↗</span></button>
+          </div>
+        </div>
+
+        <div class="hunt-rules">
+          <article><b>01</b><strong>Find et sted</strong><span>Brug kortet. Eller intuition. Stack Overflow er ikke længere en mulighed.</span></article>
+          <article><b>02</b><strong>Tag fotobevis</strong><span>Billedet gemmes kun på din telefon. GPS tæt på stedet giver ✓ VERIFIED.</span></article>
+          <article><b>03</b><strong>Ship resultatet</strong><span>Del scorekortet i gruppechatten. Social konsensus er vores distribuerede database.</span></article>
+        </div>
+
+        <div class="quest-toolbar">
+          <div>
+            <p class="panel-label">18 OPEN ISSUES</p>
+            <h3>Vælg jeres bugs</h3>
+          </div>
+          <button class="button button-ghost" id="jumpToMap" type="button">Åbn kortet <span>↓</span></button>
+        </div>
+        <div class="quest-grid" id="questGrid"></div>
+        <input id="questPhotoInput" class="visually-hidden" type="file" accept="image/*" capture="environment" />
+        <p class="city-privacy"><strong>Privacy by laziness:</strong> alias, point og fotos bliver på denne telefon. Hvis browserdata slettes, bliver jeres highscore garbage-collected med permanent effekt.</p>
       </section>
 
       <section class="section game-section" id="game" aria-labelledby="gameTitle">
         <div class="section-heading game-heading">
           <div>
-            <p class="eyebrow"><span></span> FREDDY FRESH FEDE FOOD FIGHT</p>
+            <p class="eyebrow"><span></span> 12 BRUGERE · FOOD TOUR-MODULET</p>
             <h2 id="gameTitle">Tourkampen</h2>
           </div>
-          <p>Én fælles mobil er dommerbord. Træk en udfordring, grin, giv point — videre.</p>
+          <p>Legacy feature med tre hold og én fælles dommermobil. Overraskende stabilt efter øl nummer to.</p>
         </div>
 
         <div class="game-toolbar">
@@ -296,9 +345,9 @@
     </main>
 
     <nav class="mobile-nav" aria-label="Hurtig navigation">
-      <a href="#game"><span>01</span>Kamp</a>
+      <a href="#cityGame"><span>01</span>Hunt</a>
       <a href="#mapSection"><span>02</span>Kort</a>
-      <a href="#tour"><span>03</span>Rute</a>
+      <a href="#game"><span>03</span>Food</a>
       <a href="#menu"><span>04</span>Smage</a>
     </nav>
 

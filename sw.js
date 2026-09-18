@@ -1,4 +1,4 @@
-const CACHE = "berlin-food-tour-v4";
+const CACHE = "berlin-food-tour-v5";
 const ASSETS = ["./", "./index.html", "./styles.css", "./app.js", "./manifest.webmanifest", "./assets/icon.svg"];
 
 self.addEventListener("install", (event) => {
