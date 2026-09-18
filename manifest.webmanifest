@@ -1,0 +1,12 @@
+{
+  "name": "Freddy Fresh · Berlin Food Tour",
+  "short_name": "Berlin Bites",
+  "description": "En mobil guide til Freddy Fresh Food Tour i Berlin.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f0e6",
+  "theme_color": "#ff4f2e",
+  "icons": [
+    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
