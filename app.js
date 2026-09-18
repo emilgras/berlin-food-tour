@@ -10,6 +10,29 @@ const dishes = [
   { name: "Quarkbällchen", emoji: "🍩", short: "Små, luftige kvarkkugler vendt i sukker — perfekt som finale." },
 ];
 
+const mapPlaces = [
+  { name: "Brandenburger Tor", type: "sight", icon: "★", lat: 52.51628, lng: 13.37770, text: "Berlins klassiske port og et sikkert gruppefoto." },
+  { name: "Fernsehturm", type: "sight", icon: "★", lat: 52.52082, lng: 13.40942, text: "Byens letteste pejlemærke — kig op, når I farer vild." },
+  { name: "Museumsinsel", type: "sight", icon: "★", lat: 52.51693, lng: 13.40100, text: "Monumental arkitektur, Spree og fem store museer." },
+  { name: "East Side Gallery", type: "sight", icon: "★", lat: 52.50502, lng: 13.43969, text: "Den længste bevarede del af Berlinmuren, dækket af kunst." },
+  { name: "Siegessäule", type: "sight", icon: "★", lat: 52.51453, lng: 13.35012, text: "Den gyldne engel midt i Tiergarten — flot både nedefra og oppefra." },
+  { name: "Markthalle Neun", type: "food", icon: "●", lat: 52.50213, lng: 13.43185, text: "Historisk markedshal med skiftende madboder og lokale producenter." },
+  { name: "Curry 36", type: "food", icon: "●", lat: 52.49331, lng: 13.38713, text: "Et kendt stop til en hurtig currywurst ved Mehringdamm." },
+  { name: "Mustafa’s Gemüse Kebap", type: "food", icon: "●", lat: 52.49387, lng: 13.38817, text: "Populær grøntsagsdöner — køen er en del af oplevelsen." },
+  { name: "Konnopke’s Imbiss", type: "food", icon: "●", lat: 52.54085, lng: 13.41242, text: "Klassisk currywurst under U-Bahn-sporene i Prenzlauer Berg." },
+  { name: "Burgermeister Schlesisches Tor", type: "food", icon: "●", lat: 52.50038, lng: 13.44134, text: "Burgersted i en tidligere offentlig toiletbygning — meget Berlin." },
+  { name: "Viktoriapark", type: "gem", icon: "✦", lat: 52.48835, lng: 13.38006, text: "Vandfald, monument og et overraskende kig ud over byen." },
+  { name: "Körnerpark", type: "gem", icon: "✦", lat: 52.47020, lng: 13.43854, text: "Formel nybarok park gemt flere meter under gadens niveau." },
+  { name: "Klunkerkranich", type: "gem", icon: "✦", lat: 52.48243, lng: 13.43162, text: "Taghave over Neukölln med udsigt og afslappet stemning." },
+  { name: "Teufelsberg", type: "gem", icon: "✦", lat: 52.49738, lng: 13.24116, text: "Forladt aflytningsstation, street art og et stort Berlin-panorama." },
+];
+
+// Exact tour stops are added here once confirmed. They stay invisible in the UI
+// until GPS proximity unlocks each clue and, finally, the name.
+const mysteryStops = [
+  // { name: "Stopnavn", lat: 52.52, lng: 13.40, district: "Kreuzberg", clueFar: "Søg mod kanalen", clueNear: "Lyt efter U-Bahn" },
+];
+
 const challenges = [
   { category: "FOTO · ALLE HOLD", icon: "📸", points: 3, title: "Det uofficielle albumcover", text: "Tag et dramatisk bandfoto med dagens mad som hovedperson. Mere attitude giver ikke nødvendigvis flere point — men det hjælper." },
   { category: "SCENE · 30 SEKUNDER", icon: "🎭", points: 3, title: "Michelin-dommeren fra helvede", text: "Giv en 15-sekunders, alt for alvorlig anmeldelse af den seneste bid. Brug mindst ét ord, ingen helt forstår." },
@@ -23,6 +46,8 @@ const challenges = [
   { category: "SMAG · POESI", icon: "📝", points: 2, title: "Forbudt: god og lækker", text: "Beskriv den seneste ret med tre ord — uden at bruge ‘god’, ‘lækker’ eller ‘smager’. Dommeren belønner kreativt vrøvl." },
   { category: "FOTO · FILMPLAKAT", icon: "🎬", points: 3, title: "Döner: The Movie", text: "Lav en filmplakat med mad, helt, skurk og et blik mod horisonten. Bonusrespekt for en tåbelig titel." },
   { category: "BERLIN · DETEKTIV", icon: "🔎", points: 2, title: "Find den mærkeligste detalje", text: "I har 90 sekunder til at fotografere den mest Berlin-agtige detalje i nærheden. Forklar jeres fund som museumsinspektører." },
+  { category: "KORT · OPDAGELSE", icon: "🗺️", points: 3, title: "Jagt et grønt gem", text: "Find den nærmeste grønne gem-markør på turistkortet. Tag et billede af den mest oversete detalje på stedet." },
+  { category: "GPS · FOTOJAGT", icon: "📍", points: 2, title: "Jer er her", text: "Åbn kortet, find jeres blå prik og tag et holdbillede med et tydeligt Berlin-kendetegn i baggrunden." },
   { category: "ØL · KAN VÆRE VAND", icon: "🍻", points: 2, alcohol: true, title: "Skål i slowmotion", text: "Lav turens mest filmiske skål. Øl, vand og sodavand tæller lige meget; point for ansigtsudtryk, ikke promille." },
   { category: "ØL · KAN VÆRE VAND", icon: "🧐", points: 3, alcohol: true, title: "Øl-sommelieren", text: "Beskriv en valgfri drik som en urimeligt dyr vin: noter, eftersmag og barndomsminde. En slurk er nok — skuespillet tæller." },
   { category: "ØL · HOLDSPORT", icon: "💧", points: 2, alcohol: true, title: "Hydreringsministeren", text: "Udnævn en minister, som skaffer vand til hele holdet og holder en 10-sekunders tale om national væskebalance." },
@@ -75,6 +100,16 @@ const setupForm = document.querySelector("#setupForm");
 let toastTimer;
 let deferredInstallPrompt;
 let evidenceUrl;
+let berlinMap;
+let placeMarkers = [];
+let userMarker;
+let accuracyCircle;
+let mysteryArea;
+let mysteryMarker;
+let locationWatch;
+let hasCenteredOnUser = false;
+let currentMysteryStop = Math.max(0, Number(localStorage.getItem("berlinMysteryStop") || 0));
+let lastKnownPosition;
 
 function escapeHTML(value) {
   return String(value).replace(/[&<>'"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" })[char]);
@@ -91,6 +126,202 @@ function showToast(message) {
   toast.textContent = message;
   toast.classList.add("show");
   toastTimer = setTimeout(() => toast.classList.remove("show"), 2300);
+}
+
+function markerIcon(type, label) {
+  return L.divIcon({
+    className: `tourist-marker ${type}`,
+    html: `<span><b>${escapeHTML(label)}</b></span>`,
+    iconSize: [44, 48],
+    iconAnchor: [22, 45],
+    popupAnchor: [0, -44],
+  });
+}
+
+function placePopup(place) {
+  const query = encodeURIComponent(`${place.name}, Berlin`);
+  const labels = { sight: "Seværdighed", food: "Madspor", gem: "Hidden gem" };
+  return `<div class="map-popup"><small>${labels[place.type]}</small><h3>${escapeHTML(place.name)}</h3><p>${escapeHTML(place.text)}</p><a href="https://www.google.com/maps/search/?api=1&query=${query}" target="_blank" rel="noreferrer">Åbn vejvisning ↗</a></div>`;
+}
+
+function renderMapPlaces(filter = "all") {
+  if (!berlinMap) return;
+  placeMarkers.forEach(({ marker }) => marker.remove());
+  placeMarkers = mapPlaces
+    .filter((place) => filter === "all" || place.type === filter)
+    .map((place) => {
+      const marker = L.marker([place.lat, place.lng], { icon: markerIcon(place.type, place.icon), title: place.name })
+        .addTo(berlinMap)
+        .bindPopup(placePopup(place));
+      return { place, marker };
+    });
+}
+
+function initMap() {
+  const loading = document.querySelector("#mapLoading");
+  if (!window.L) {
+    loading.textContent = "Kortet kunne ikke hentes — prøv igen med internet.";
+    document.querySelector("#locateButton").disabled = true;
+    return;
+  }
+  berlinMap = L.map("berlinMap", { zoomControl: false, minZoom: 10, maxZoom: 19 }).setView([52.515, 13.405], 12);
+  L.control.zoom({ position: "topright" }).addTo(berlinMap);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a>",
+  }).addTo(berlinMap);
+  loading.hidden = true;
+  renderMapPlaces();
+  if (mysteryStops.length && currentMysteryStop >= mysteryStops.length) showMysteryComplete();
+}
+
+function distanceInMeters(from, to) {
+  const earthRadius = 6371000;
+  const radians = (degrees) => degrees * Math.PI / 180;
+  const dLat = radians(to.lat - from.lat);
+  const dLng = radians(to.lng - from.lng);
+  const lat1 = radians(from.lat);
+  const lat2 = radians(to.lat);
+  const value = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng / 2) ** 2;
+  return earthRadius * 2 * Math.atan2(Math.sqrt(value), Math.sqrt(1 - value));
+}
+
+function compassDirection(from, to) {
+  const radians = (degrees) => degrees * Math.PI / 180;
+  const degrees = (value) => value * 180 / Math.PI;
+  const dLng = radians(to.lng - from.lng);
+  const lat1 = radians(from.lat);
+  const lat2 = radians(to.lat);
+  const y = Math.sin(dLng) * Math.cos(lat2);
+  const x = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLng);
+  const bearing = (degrees(Math.atan2(y, x)) + 360) % 360;
+  const arrows = ["↑ N", "↗ NØ", "→ Ø", "↘ SØ", "↓ S", "↙ SV", "← V", "↖ NV"];
+  return arrows[Math.round(bearing / 45) % 8];
+}
+
+function fuzzyPoint(stop, offset, index) {
+  const angle = ((index * 137) + 48) * Math.PI / 180;
+  return {
+    lat: stop.lat + (Math.cos(angle) * offset) / 111320,
+    lng: stop.lng + (Math.sin(angle) * offset) / (111320 * Math.cos(stop.lat * Math.PI / 180)),
+  };
+}
+
+function clearMysteryMap() {
+  if (mysteryArea) mysteryArea.remove();
+  if (mysteryMarker) mysteryMarker.remove();
+  mysteryArea = null;
+  mysteryMarker = null;
+}
+
+function updateMysteryJourney(position) {
+  const stop = mysteryStops[currentMysteryStop];
+  if (!stop || !berlinMap) return;
+  const distance = distanceInMeters(position, stop);
+  const title = document.querySelector("#mysteryTitle");
+  const clue = document.querySelector("#mysteryClue");
+  const distanceLabel = document.querySelector("#mysteryDistance");
+  const direction = document.querySelector("#mysteryDirection");
+  const arrival = document.querySelector("#arrivalActions");
+  const progress = Math.max(4, Math.min(100, 100 - (distance / 30)));
+  document.querySelector("#mysteryProgress").style.width = `${progress}%`;
+  direction.textContent = compassDirection(position, stop);
+  arrival.hidden = true;
+  clearMysteryMap();
+
+  if (distance > 1200) {
+    const fuzzy = fuzzyPoint(stop, 650, currentMysteryStop);
+    mysteryArea = L.circle(fuzzy, { radius: 850, color: "#ff4f2e", weight: 2, fillColor: "#ffce36", fillOpacity: .18, dashArray: "8 9" }).addTo(berlinMap);
+    title.textContent = `Noget venter i ${stop.district}`;
+    clue.textContent = stop.clueFar;
+    distanceLabel.textContent = distance > 3000 ? `Ca. ${Math.round(distance / 1000)} km væk` : `Ca. ${Math.round(distance / 500) * 500} m væk`;
+  } else if (distance > 350) {
+    const fuzzy = fuzzyPoint(stop, 180, currentMysteryStop);
+    mysteryArea = L.circle(fuzzy, { radius: 320, color: "#ff4f2e", weight: 2, fillColor: "#ffce36", fillOpacity: .22, dashArray: "6 7" }).addTo(berlinMap);
+    title.textContent = "Varmere. Meget varmere.";
+    clue.textContent = stop.clueNear;
+    distanceLabel.textContent = `Ca. ${Math.round(distance / 100) * 100} m væk`;
+  } else if (distance > 60) {
+    title.textContent = "Nu kan I næsten lugte det";
+    clue.textContent = `${stop.clueNear} Fortsæt i pilens retning — navnet låses op ved ankomst.`;
+    distanceLabel.textContent = `${Math.round(distance / 25) * 25} m væk`;
+  } else {
+    title.textContent = stop.name;
+    clue.textContent = "Fundet! Stop gemt, hype bevaret. Tag ankomstbilledet, før nogen bestiller uden holdet.";
+    distanceLabel.textContent = distance < 15 ? "I er her" : `${Math.round(distance)} m væk`;
+    direction.textContent = "★ UNLOCKED";
+    document.querySelector("#mysteryProgress").style.width = "100%";
+    arrival.hidden = false;
+    mysteryMarker = L.marker([stop.lat, stop.lng], { icon: markerIcon("food", "★"), title: stop.name }).addTo(berlinMap).bindPopup(`<div class="map-popup"><small>Tourstop fundet</small><h3>${escapeHTML(stop.name)}</h3></div>`);
+  }
+}
+
+function showMysteryComplete() {
+  clearMysteryMap();
+  document.querySelector("#mysteryTitle").textContent = "Alle mysterier er fundet";
+  document.querySelector("#mysteryClue").textContent = "I fandt hele ruten uden spoilers. Nu mangler kun vinderpodiet — og muligvis en serviet.";
+  document.querySelector("#mysteryDistance").textContent = "RUTE GENNEMFØRT";
+  document.querySelector("#mysteryDirection").textContent = "★ ★ ★";
+  document.querySelector("#mysteryProgress").style.width = "100%";
+  document.querySelector("#arrivalActions").hidden = true;
+}
+
+function onLocationFound(geolocationPosition) {
+  const position = { lat: geolocationPosition.coords.latitude, lng: geolocationPosition.coords.longitude };
+  lastKnownPosition = position;
+  const accuracy = geolocationPosition.coords.accuracy;
+  if (!userMarker) {
+    userMarker = L.marker([position.lat, position.lng], { icon: markerIcon("user", ""), zIndexOffset: 1000, title: "Din position" }).addTo(berlinMap).bindPopup("Du er her");
+    accuracyCircle = L.circle([position.lat, position.lng], { radius: accuracy, color: "#2878ff", weight: 1, fillOpacity: .08 }).addTo(berlinMap);
+  } else {
+    userMarker.setLatLng([position.lat, position.lng]);
+    accuracyCircle.setLatLng([position.lat, position.lng]).setRadius(accuracy);
+  }
+  if (!hasCenteredOnUser) {
+    berlinMap.setView([position.lat, position.lng], 15);
+    hasCenteredOnUser = true;
+  }
+  const status = document.querySelector("#locationStatus");
+  status.className = "map-status is-live";
+  status.querySelector("strong").textContent = "GPS følger jer";
+  status.querySelector("small").textContent = `Position fundet med cirka ${Math.round(accuracy)} meters præcision.`;
+  document.querySelector("#locateButton").classList.add("is-tracking");
+  document.querySelector("#locateButton strong").textContent = "Følger jer";
+  updateMysteryJourney(position);
+}
+
+function onLocationError(error) {
+  const messages = {
+    1: "Tillad placering i browserens indstillinger for at bruge GPS-jagten.",
+    2: "Telefonen kunne ikke finde en position. Gå gerne udenfor og prøv igen.",
+    3: "GPS'en var for længe om at svare. Tryk Find mig og prøv igen.",
+  };
+  const status = document.querySelector("#locationStatus");
+  status.className = "map-status is-error";
+  status.querySelector("strong").textContent = "Ingen GPS-position";
+  status.querySelector("small").textContent = messages[error.code] || "Positionen kunne ikke hentes.";
+  document.querySelector("#locateButton").disabled = false;
+  document.querySelector("#locateButton strong").textContent = "Prøv igen";
+  if (locationWatch !== undefined) navigator.geolocation.clearWatch(locationWatch);
+  locationWatch = undefined;
+}
+
+function startLocationTracking() {
+  if (!berlinMap) return;
+  if (!navigator.geolocation) {
+    onLocationError({ code: 2 });
+    return;
+  }
+  if (locationWatch !== undefined) {
+    if (userMarker) berlinMap.setView(userMarker.getLatLng(), 16);
+    return;
+  }
+  document.querySelector("#locateButton strong").textContent = "Finder…";
+  locationWatch = navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
+    enableHighAccuracy: true,
+    maximumAge: 8000,
+    timeout: 15000,
+  });
 }
 
 function updateProgress() {
@@ -298,6 +529,29 @@ document.querySelector("#finishGameButton").addEventListener("click", () => {
 
 document.querySelector("[data-close-winner]").addEventListener("click", () => winnerDialog.close());
 
+document.querySelector(".map-toolbar").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-map-filter]");
+  if (!button) return;
+  document.querySelectorAll(".map-filter").forEach((filterButton) => {
+    const active = filterButton === button;
+    filterButton.classList.toggle("is-active", active);
+    filterButton.setAttribute("aria-pressed", String(active));
+  });
+  renderMapPlaces(button.dataset.mapFilter);
+});
+
+document.querySelector("#locateButton").addEventListener("click", startLocationTracking);
+
+document.querySelector("#arrivalPhoto").addEventListener("change", (event) => {
+  if (!event.target.files.length) return;
+  showToast("Ankomstbillede sikret — næste mysterium låses op!");
+  currentMysteryStop += 1;
+  localStorage.setItem("berlinMysteryStop", String(currentMysteryStop));
+  event.target.value = "";
+  if (currentMysteryStop >= mysteryStops.length) showMysteryComplete();
+  else if (lastKnownPosition) updateMysteryJourney(lastKnownPosition);
+});
+
 document.querySelector("#shareButton").addEventListener("click", async () => {
   const shareData = { title: document.title, text: "Klar til Freddy Fresh Food Fight i Berlin?", url: location.href };
   try {
@@ -316,6 +570,8 @@ document.querySelector("#resetButton").addEventListener("click", () => {
   state.stops.clear();
   state.dishes.clear();
   state.game = freshGame();
+  currentMysteryStop = 0;
+  localStorage.removeItem("berlinMysteryStop");
   saveState();
   document.querySelectorAll(".stop-card").forEach((card) => {
     card.classList.remove("completed");
@@ -350,6 +606,7 @@ document.querySelectorAll(".stop-card").forEach((card) => {
 renderDishes();
 renderGame();
 updateProgress();
+initMap();
 
 if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
   window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js"));

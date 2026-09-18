@@ -10,6 +10,9 @@
     <meta property="og:type" content="website" />
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://unpkg.com" />
+    <link rel="preconnect" href="https://tile.openstreetmap.org" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="styles.css" />
     <title>Freddy Fresh · Berlin Food Tour</title>
   </head>
@@ -118,6 +121,59 @@
           <p><strong>Øl er en mulighed, aldrig en pligt.</strong> Alle drikke-udfordringer virker også med vand eller sodavand. Ingen bund, ingen pres — og spørg altid, før fremmede kommer med på et billede.</p>
           <button class="button button-dark" id="finishGameButton" type="button">Kår vinderne <span>🏆</span></button>
         </div>
+      </section>
+
+      <section class="section map-section" id="mapSection" aria-labelledby="mapTitle">
+        <div class="section-heading map-heading">
+          <div>
+            <p class="eyebrow"><span></span> BERLIN I LOMMEN</p>
+            <h2 id="mapTitle">Find byen.<br /><em>Ikke facit.</em></h2>
+          </div>
+          <p>Se seværdigheder, gode madspor og skjulte hjørner. Den rigtige tour-rute afslører kun sig selv, når I nærmer jer.</p>
+        </div>
+
+        <div class="map-toolbar" aria-label="Kortfiltre">
+          <button class="map-filter is-active" type="button" data-map-filter="all" aria-pressed="true"><span>◎</span> Alle</button>
+          <button class="map-filter" type="button" data-map-filter="sight" aria-pressed="false"><span>★</span> Seværdigt</button>
+          <button class="map-filter" type="button" data-map-filter="food" aria-pressed="false"><span>●</span> Mad</button>
+          <button class="map-filter" type="button" data-map-filter="gem" aria-pressed="false"><span>✦</span> Gems</button>
+        </div>
+
+        <div class="tourist-map-shell">
+          <div id="berlinMap" class="berlin-map" role="application" aria-label="Interaktivt turistkort over Berlin"></div>
+          <div class="map-stamp" aria-hidden="true"><strong>BERLIN</strong><span>FIND YOUR BITE</span></div>
+          <button class="locate-button" id="locateButton" type="button" aria-label="Vis min position på kortet">
+            <span aria-hidden="true">⌖</span><strong>Find mig</strong>
+          </button>
+          <div class="map-loading" id="mapLoading">Kortet vågner…</div>
+        </div>
+
+        <div class="map-status" id="locationStatus" role="status" aria-live="polite">
+          <span class="status-dot"></span>
+          <p><strong>GPS er slukket</strong><small>Tryk “Find mig”, når I er ude i byen.</small></p>
+        </div>
+
+        <div class="mystery-panel" id="mysteryPanel">
+          <div class="mystery-visual" aria-hidden="true">
+            <span class="radar-ring ring-one"></span><span class="radar-ring ring-two"></span><span class="mystery-pin">?</span>
+          </div>
+          <div class="mystery-copy">
+            <p class="panel-label">NÆSTE HEMMELIGE STOP</p>
+            <h3 id="mysteryTitle">Ruten er stadig tophemmelig</h3>
+            <p id="mysteryClue">Når de endelige stop er lagt ind, bliver dette jeres GPS-kompas. Ingen adresse og ingen spoiler.</p>
+            <div class="mystery-meter" aria-hidden="true"><span id="mysteryProgress"></span></div>
+            <div class="mystery-meta">
+              <strong id="mysteryDistance">Afventer koordinater</strong>
+              <span id="mysteryDirection">● ● ●</span>
+            </div>
+            <div class="arrival-actions" id="arrivalActions" hidden>
+              <label class="button button-dark" for="arrivalPhoto">Vi er her — tag foto <span>📷</span></label>
+              <input id="arrivalPhoto" class="visually-hidden" type="file" accept="image/*" capture="environment" />
+            </div>
+          </div>
+        </div>
+
+        <p class="map-note"><strong>Privatliv:</strong> Din position bliver kun brugt på denne telefon og bliver ikke sendt til os. Kortet kræver internet; resten af guiden virker fortsat offline.</p>
       </section>
 
       <section class="section tour-section" id="tour" aria-labelledby="tourTitle">
@@ -241,8 +297,9 @@
 
     <nav class="mobile-nav" aria-label="Hurtig navigation">
       <a href="#game"><span>01</span>Kamp</a>
-      <a href="#tour"><span>02</span>Rute</a>
-      <a href="#menu"><span>03</span>Smage</a>
+      <a href="#mapSection"><span>02</span>Kort</a>
+      <a href="#tour"><span>03</span>Rute</a>
+      <a href="#menu"><span>04</span>Smage</a>
     </nav>
 
     <dialog class="game-dialog" id="gameSetup" aria-labelledby="setupTitle">
@@ -272,6 +329,7 @@
     </dialog>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
     <script src="app.js" defer></script>
   </body>
 </html>
